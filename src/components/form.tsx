@@ -136,7 +136,7 @@ export function Form() {
           <input
             type="text"
             className="w-full bg-gray-950 border border-green-800 p-3 text-green-400 font-mono text-sm focus:border-green-400 focus:outline-none"
-            placeholder="Handle de mensagem criptografada"
+            placeholder="(205) 709-7437"
             value={secureContact}
             onChange={(e) => setSecureContact(e.target.value)}
           />
