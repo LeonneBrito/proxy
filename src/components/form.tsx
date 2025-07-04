@@ -20,6 +20,7 @@ export function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_PAYMENT || ''
+  const isValidGang = Object.values(gangs).some((g) => g.hash === publicKey)
 
   useEffect(() => {
     const id = Math.random().toString(36).substring(2, 15)
@@ -49,11 +50,18 @@ export function Form() {
       '```',
     ].join('\n')
   }
+
   const handleConfirmPurchase = async () => {
     if (!publicKey.trim() || !secureContact.trim() || !transactionId.trim()) {
       toast.error(
         'Todos os campos devem ser preenchidos antes de confirmar a compra.',
       )
+      return
+    }
+
+    const gang = Object.values(gangs).find((g) => g.hash === publicKey)
+    if (!gang) {
+      toast.error('Tem certeza que deveria estar aqui?')
       return
     }
 
@@ -158,7 +166,8 @@ export function Form() {
             isSubmitting ||
             !publicKey.trim() ||
             !secureContact.trim() ||
-            !transactionId.trim()
+            !transactionId.trim() ||
+            !isValidGang
           }
           className="w-full bg-green-800 hover:bg-green-700 text-black py-4 border border-green-400 transition-colors text-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed"
         >
