@@ -53,10 +53,9 @@ export function ProductList() {
         </div>
       </div>
 
-      {/* Produto 2 - Indisponível */}
       <div className="border border-green-800 p-6 bg-gray-950 opacity-50 relative">
         <div className="mb-4">
-          <span className="text-xs text-green-400">ID_ITEM: #ATMDOOM42</span>
+          <span className="text-xs text-green-400">ID_ITEM: #2A4F6B8D</span>
         </div>
 
         <h2 className="text-2xl mb-4 text-white">NOTEBOOK_GAMER_ATM_EDITION</h2>
