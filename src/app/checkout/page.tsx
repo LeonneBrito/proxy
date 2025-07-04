@@ -1,7 +1,13 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { Form } from '@/components/form'
 import { Resume } from '@/components/resume'
+
+export const metadata: Metadata = {
+  title: 'Checkout',
+  description: 'Finalize sua compra de forma segura e anônima',
+}
 
 export default function CheckoutPage() {
   return (
