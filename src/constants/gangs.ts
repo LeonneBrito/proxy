@@ -71,4 +71,9 @@ export const gangs: {
     hash: '82a7642b63ab1d8e1a5682b82d038490',
     price: 3500,
   },
+  sharkSix: {
+    name: 'Shark SIX',
+    hash: 'b1c3f4e2d5a6b7c8d9e0f1a2b3c4d5e6',
+    price: 3000,
+  },
 }
