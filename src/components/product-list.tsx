@@ -53,7 +53,7 @@ export function ProductList() {
         </div>
       </div>
 
-      <div className="border border-green-800 p-6 bg-gray-950 opacity-50 relative">
+      <div className="border border-green-800 p-6 bg-gray-950 relative">
         <div className="mb-4">
           <span className="text-xs text-green-400">ID_ITEM: #2A4F6B8D</span>
         </div>
@@ -94,16 +94,12 @@ export function ProductList() {
             </span>
           </div>
 
-          <button
-            disabled
-            className="bg-gray-700 text-gray-400 px-6 py-2 border border-gray-500 cursor-not-allowed"
+          <Link
+            href="/checkout"
+            className="bg-green-800 hover:bg-green-700 text-black px-6 py-2 border border-green-400 transition-colors"
           >
-            [INDISPONÍVEL]
-          </button>
-        </div>
-
-        <div className="absolute top-0 right-0 bg-red-800 text-white text-xs px-2 py-1">
-          EM BREVE
+            [ADICIONAR_AO_CARRINHO]
+          </Link>
         </div>
       </div>
     </div>

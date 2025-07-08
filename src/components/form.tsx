@@ -11,9 +11,11 @@ export function Form() {
     publicKey,
     secureContact,
     pendriveQty,
+    notebookQty,
     setPublicKey,
     setSecureContact,
     setPendriveQty,
+    setNotebookQty,
   } = usePaymentFormStore()
 
   const [transactionId, setTransactionId] = useState('')
@@ -30,8 +32,10 @@ export function Form() {
   const generateDiscordMessage = () => {
     const gang = Object.values(gangs).find((g) => g.hash === publicKey)
     const gangName = gang?.name || 'NÃO SELECIONADA'
-    const unitPrice = gang?.price || 0
-    const total = unitPrice * pendriveQty
+    const prices = gang?.prices || { pendrive: 0, notebook: 0 }
+    const pendriveTotal = prices.pendrive * pendriveQty
+    const notebookTotal = prices.notebook * notebookQty
+    const total = pendriveTotal + notebookTotal
 
     return [
       '```yaml',
@@ -42,6 +46,7 @@ export function Form() {
       `🔐 CONTATO_SEGURO: ${secureContact || '[NÃO INFORMADO]'}`,
       `🧾 ID_TRANSAÇÃO: ${transactionId}`,
       `📦 QTD. PENDRIVES: ${pendriveQty}`,
+      `💻 QTD. NOTEBOOKS: ${notebookQty}`,
       `💰 VALOR_TOTAL: ${total.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -122,6 +127,19 @@ export function Form() {
             className="w-full bg-gray-950 border border-green-800 p-3 text-green-400 font-mono text-sm focus:border-green-400 focus:outline-none"
             value={pendriveQty}
             onChange={(e) => setPendriveQty(Number(e.target.value))}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm text-green-600 mb-2">
+            QUANTIDADE_NOTEBOOKS:
+          </label>
+          <input
+            type="number"
+            min="0"
+            className="w-full bg-gray-950 border border-green-800 p-3 text-green-400 font-mono text-sm focus:border-green-400 focus:outline-none"
+            value={notebookQty}
+            onChange={(e) => setNotebookQty(Number(e.target.value))}
           />
         </div>
 
