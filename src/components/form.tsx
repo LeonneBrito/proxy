@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -17,6 +18,7 @@ export function Form() {
     setPendriveQty,
     setNotebookQty,
   } = usePaymentFormStore()
+  const router = useRouter()
 
   const [transactionId, setTransactionId] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -91,6 +93,8 @@ export function Form() {
       if (!res.ok) throw new Error('Tem certeza que deveria estar aqui?')
 
       toast.success('A UHJveHk= agradece pelo seu bom gosto!')
+
+      router.push(`/${transactionId}/finish`)
     } catch (err) {
       console.error(err)
       toast.error('Tem certeza que deveria estar aqui?')
