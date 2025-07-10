@@ -1,11 +1,4 @@
-import {
-  CheckCircle,
-  Clock,
-  Download,
-  MapPin,
-  Package,
-  Shield,
-} from 'lucide-react'
+import { CheckCircle, Clock, MapPin, Package, Shield } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function FinishOrderPage({
@@ -75,67 +68,6 @@ export default async function FinishOrderPage({
                 <p>• Agente de entrega: ANÔNIMO</p>
                 <p>• Código de verificação será enviado</p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="border border-green-800 p-6 bg-gray-950 mb-8">
-          <h3 className="text-lg mb-4 text-white flex items-center gap-2">
-            <Download size={20} />
-            DOWNLOADS_DISPONÍVEIS
-          </h3>
-
-          <div className="space-y-4">
-            <div className="bg-gray-950 border border-green-800 p-4 flex items-center justify-between">
-              <div>
-                <div className="text-white font-semibold">
-                  RECIBO_DIGITAL.md
-                </div>
-                <div className="text-xs text-green-600">
-                  Comprovante criptografado da transação
-                </div>
-              </div>
-              <a
-                href={`/api/downloads/recibo/${id}`}
-                className="bg-green-800 hover:bg-green-700 text-black px-4 py-2 border border-green-400 transition-colors"
-              >
-                [BAIXAR]
-              </a>
-            </div>
-
-            <div className="bg-gray-950 border border-green-800 p-4 flex items-center justify-between">
-              <div>
-                <div className="text-white font-semibold">
-                  CHAVE_VERIFICAÇÃO.md
-                </div>
-                <div className="text-xs text-green-600">
-                  Chave para validação do produto
-                </div>
-              </div>
-              <a
-                href={`/api/downloads/chave/${id}`}
-                className="bg-green-800 hover:bg-green-700 text-black px-4 py-2 border border-green-400 transition-colors"
-              >
-                [BAIXAR]
-              </a>
-            </div>
-
-            <div className="bg-gray-950 border border-green-800 p-4 flex items-center justify-between">
-              <div>
-                <div className="text-white font-semibold">
-                  MANUAL_SEGURANÇA.md
-                </div>
-                <div className="text-xs text-green-600">
-                  Instruções de uso seguro
-                </div>
-              </div>
-              <a
-                href="/downloads/MANUAL_SEGURANCA.md"
-                download
-                className="bg-green-800 hover:bg-green-700 text-black px-4 py-2 border border-green-400 transition-colors"
-              >
-                [BAIXAR]
-              </a>
             </div>
           </div>
         </div>
