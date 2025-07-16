@@ -7,6 +7,8 @@ import { toast } from 'sonner'
 import { gangs } from '@/constants/gangs'
 import { usePaymentFormStore } from '@/store/use-payment-form-state'
 
+import { CesariniAlertDialog } from './cesarini-alert-dialog'
+
 export function Form() {
   const {
     publicKey,
@@ -22,9 +24,19 @@ export function Form() {
 
   const [transactionId, setTransactionId] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showCesariniAlert, setShowCesariniAlert] = useState(false)
 
   const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_PAYMENT || ''
   const isValidGang = Object.values(gangs).some((g) => g.hash === publicKey)
+
+  useEffect(() => {
+    const gang = Object.values(gangs).find((g) => g.hash === publicKey)
+    if (gang?.name === 'Cesarini') {
+      setShowCesariniAlert(true)
+    } else {
+      setShowCesariniAlert(false)
+    }
+  }, [publicKey])
 
   useEffect(() => {
     const id = Math.random().toString(36).substring(2, 15)
@@ -196,6 +208,10 @@ export function Form() {
           {isSubmitting ? '[ENVIANDO...]' : '[CONFIRMAR_COMPRA]'}
         </button>
       </form>
+      <CesariniAlertDialog
+        open={showCesariniAlert}
+        onOpenChange={setShowCesariniAlert}
+      />
     </div>
   )
 }
