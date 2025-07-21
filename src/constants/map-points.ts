@@ -1,6 +1,8 @@
 export const mapPoints: {
   [key: string]: { label: string; lat: number; lng: number }[]
 } = {
-  '93dl32utovj': [{ label: 'Entrega?', lat: 465.5, lng: 636.25 }],
-  rhp4lw9m7yg: [{ label: 'Entrega?', lat: 714.25, lng: 953.25 }],
+  '75am2i7xt8q': [
+    { label: 'Entrega?', lat: 378.61363983154297, lng: 1152.772705078125 },
+  ],
+  k604u03fc5a: [{ label: 'Entrega?', lat: 768.5, lng: 1041.75 }],
 }
