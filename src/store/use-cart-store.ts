@@ -72,7 +72,8 @@ export const useCartStore = create<CartState>()(
             item.id === id ? { ...item, quantity } : item,
           ),
         })),
-      clearCart: () => set({ cart: [] }),
+      clearCart: () =>
+        set({ cart: [], secureContact: { name: '', number: '' } }),
     }),
     {
       name: 'cart-storage',

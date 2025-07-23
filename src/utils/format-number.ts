@@ -1,7 +1,6 @@
 export function formatPhoneNumber(value: string) {
   return value
-    .replace(/\D/g, '') // remove tudo que não for número
-    .replace(/^(\d{3})(\d)/, '($1) $2') // parênteses nos 3 primeiros
-    .replace(/(\d{3})(\d{1,4})$/, '$1-$2') // hífen depois dos próximos 3
-    .slice(0, 14) // limita ao tamanho máximo
+    .replace(/\D/g, '') // Remove tudo que não for número
+    .slice(0, 10) // Limita a 10 dígitos
+    .replace(/^(\d{3})(\d{3})(\d{0,4})$/, '($1) $2-$3') // Formata
 }

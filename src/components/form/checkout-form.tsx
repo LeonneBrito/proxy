@@ -86,8 +86,8 @@ export function CheckoutForm() {
 
       toast.success('Pagamento registrado com sucesso!')
       localStorage.removeItem('cart-storage')
-      router.push(`checkout/${transactionId}/finish`)
       clearCart()
+      router.push(`checkout/${transactionId}/finish`)
     } catch (err) {
       console.error('Erro ao enviar dados:', err)
       toast.error('Erro ao enviar dados. Tente novamente.')
