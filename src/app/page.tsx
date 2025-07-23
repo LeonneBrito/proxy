@@ -1,15 +1,9 @@
-import { Footer } from '@/components/footer'
-import { ProductList } from '@/components/product-list'
-import { System } from '@/components/system'
+import { LoginForm } from '@/components/form/login-form'
 
-export default function Page() {
+export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-gray-950 text-green-400 font-mono">
-      <main className="max-w-4xl mx-auto p-4">
-        <System />
-        <ProductList />
-        <Footer />
-      </main>
-    </div>
+    <main className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+      <LoginForm />
+    </main>
   )
 }

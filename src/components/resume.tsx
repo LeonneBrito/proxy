@@ -1,50 +1,43 @@
 'use client'
 
 import { gangs } from '@/constants/gangs'
-import { usePaymentFormStore } from '@/store/use-payment-form-state'
+import { useCartStore } from '@/store/use-cart-store'
 
 export function Resume() {
-  const { publicKey, pendriveQty, notebookQty } = usePaymentFormStore()
+  const { cart } = useCartStore()
 
-  const prices = Object.values(gangs).find(
-    (gang) => gang.hash === publicKey,
-  )?.prices
+  const gang = Object.values(gangs).find(
+    (g) => g.login === localStorage.getItem('gang'),
+  )
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   return (
-    <div className="border border-green-800 p-4 bg-gray-950 mb-8">
-      <h2 className="text-lg mb-4 text-white">RESUMO_PEDIDO</h2>
-      <div className="space-y-2 text-sm">
-        {prices ? (
-          <>
-            <div className="flex justify-between">
-              <span>PENDRIVE_SUMMERELETROHITS_2025</span>
-              <span className="text-green-400">
-                {pendriveQty} x $ {prices.pendrive.toFixed(2)} = ${' '}
-                {(prices.pendrive * pendriveQty).toFixed(2)}
+    <div className="border border-green-800 p-4 bg-gray-950">
+      <h2 className="text-lg mb-4 text-white font-bold">RESUMO_PEDIDO</h2>
+
+      {gang ? (
+        <div className="space-y-2 text-sm text-green-200">
+          {cart.map((item) => (
+            <div key={item.id} className="flex justify-between">
+              <span>{item.name}</span>
+              <span>
+                {item.quantity} x $ {item.price.toFixed(2)} ={' '}
+                <span className="text-green-400">
+                  $ {(item.quantity * item.price).toFixed(2)}
+                </span>
               </span>
             </div>
-            <div className="flex justify-between">
-              <span>NOTEBOOK_GAMER_ATM_EDITION</span>
-              <span className="text-green-400">
-                {notebookQty} x $ {prices.notebook.toFixed(2)} = ${' '}
-                {(prices.notebook * notebookQty).toFixed(2)}
-              </span>
-            </div>
-            <div className="flex justify-between border-t border-green-800 pt-2 font-bold">
-              <span>TOTAL</span>
-              <span className="text-green-300">
-                ${' '}
-                {(
-                  prices.pendrive * pendriveQty +
-                  prices.notebook * notebookQty
-                ).toFixed(2)}
-              </span>
-            </div>
-          </>
-        ) : (
-          <span className="text-red-500">CHAVE INVÁLIDA</span>
-        )}
-      </div>
+          ))}
+
+          <div className="flex justify-between border-t border-green-800 pt-2 font-bold text-green-300 mt-2">
+            <span>TOTAL</span>
+            <span>$ {total.toFixed(2)}</span>
+          </div>
+        </div>
+      ) : (
+        <div className="text-red-500 text-sm">CHAVE INVÁLIDA</div>
+      )}
     </div>
   )
 }

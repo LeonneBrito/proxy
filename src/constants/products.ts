@@ -2,6 +2,7 @@ export const products = [
   {
     id: '#7F3A9B2C',
     name: 'PENDRIVE_SUMMERELETROHITS_2025',
+    image: '/images/pendrive-summereletrohits-2025.png',
     disabled: false,
     description: [
       'A trilha sonora oficial da contravenção tropical.',
@@ -16,11 +17,15 @@ export const products = [
       'Qualidade FLAC: bate até no subwoofer do Uno com escada',
       'Resistente à água, suor e lágrimas de ex arrependido',
     ],
-    price: 'U2FsdGVkX1+q3J8n5k9vQw==',
+    price: {
+      ally: 3000,
+      notAlly: 3500,
+    },
   },
   {
     id: '#2A4F6B8D',
     name: 'NOTEBOOK_GAMER_ATM_EDITION',
+    image: '/images/notebook-gamer-atm-edition.png',
     disabled: false,
     description: [
       'Feito pra rodar *DOOM*, hackear o caixa eletrônico e responder a avó no WhatsApp — tudo ao mesmo tempo.',
@@ -36,11 +41,15 @@ export const products = [
       'Tela OLED 17" com filtro antifofoqueiro embutido',
       'Compatível com terminais bancários, caixas de supermercado e até lan houses dos anos 2000',
     ],
-    price: 'U2FsdGVkX1+d00mH4ck3dV4lu3==',
+    price: {
+      ally: 10000,
+      notAlly: 12000,
+    },
   },
   {
     id: '#3B5E8F1A',
     name: 'PENDRIVE_EXPLOSAO_TCHACABUM',
+    image: '/images/pendrive-explosao-tchacabum.png',
     disabled: true,
     description: [
       'Pendrive criado em laboratório secreto por um engenheiro demitido da NASA e um DJ de baile funk.',
@@ -55,6 +64,9 @@ export const products = [
       'Destrava portas como se fosse ex no WhatsApp: rápido e sem explicação',
       'LED invisível. Porque luz é pra amador.',
     ],
-    price: 'U2FsdGVkX1+p3nDr0bCrFr3e++',
+    price: {
+      ally: 8000,
+      notAlly: 10000,
+    },
   },
 ]

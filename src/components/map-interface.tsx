@@ -30,7 +30,7 @@ export function MapInterface({ mapId }: { mapId: string }) {
   return (
     <div className="min-h-screen bg-gray-950 text-green-400 font-mono">
       <section className="border border-green-800 bg-gray-950 p-6">
-        <h2 className="text-xl text-white mb-4">
+        <h2 className="text-white mb-4">
           LOCALIZAÇÃO_DOS_NOSSOS_CYBERMASCOTES
         </h2>
         <div className="aspect-[1/1] w-full max-w-4xl mx-auto">

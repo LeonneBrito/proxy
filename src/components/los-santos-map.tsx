@@ -75,9 +75,8 @@ export default function LosSantosMap({ points }: { points: PointData[] }) {
       <MapContainer
         crs={L.CRS.Simple}
         bounds={bounds}
-        minZoom={-2}
-        maxZoom={2}
-        zoom={0}
+        minZoom={0}
+        zoom={2}
         scrollWheelZoom
         style={{ width: '100%', height: '100%' }}
       >
