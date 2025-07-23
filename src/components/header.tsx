@@ -1,6 +1,6 @@
 'use client'
 
-import { ShoppingCart, Trash2 } from 'lucide-react'
+import { LogOut, ShoppingCart, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -33,13 +33,18 @@ export function Header() {
     setGangName(gangKey ? gangs[gangKey].name : '')
   }, [])
 
+  const handleLogout = () => {
+    localStorage.removeItem('gang')
+    router.push('/')
+  }
+
   return (
     <header className="p-3 border border-green-800 bg-gray-950 flex items-center justify-between text-white">
       <h1 className="text-green-400 font-bold text-lg">
         Bem vindos, {gangName}!
       </h1>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -110,6 +115,15 @@ export function Header() {
             )}
           </PopoverContent>
         </Popover>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:bg-gray-800"
+          onClick={handleLogout}
+        >
+          <LogOut className="h-5 w-5 text-red-400" />
+        </Button>
       </div>
     </header>
   )

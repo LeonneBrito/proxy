@@ -3,8 +3,10 @@
 import { gangs } from '@/constants/gangs'
 import { useCartStore } from '@/store/use-cart-store'
 
+import { Button } from './ui/button'
+
 export function Resume() {
-  const { cart } = useCartStore()
+  const { cart, clearCart } = useCartStore()
 
   const gang = Object.values(gangs).find(
     (g) => g.login === localStorage.getItem('gang'),
@@ -33,6 +35,16 @@ export function Resume() {
           <div className="flex justify-between border-t border-green-800 pt-2 font-bold text-green-300 mt-2">
             <span>TOTAL</span>
             <span>$ {total.toFixed(2)}</span>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <Button
+              variant="outline"
+              onClick={clearCart}
+              className="text-white text-xs px-4 py-2 bg-gray-950 border border-red-600 hover:bg-red-600 hover:text-white rounded-none"
+            >
+              Limpar Carrinho
+            </Button>
           </div>
         </div>
       ) : (

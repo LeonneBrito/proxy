@@ -4,6 +4,11 @@ import { persist } from 'zustand/middleware'
 
 import { fixedDiscountMap } from '@/utils/discount-config'
 
+interface SecureContact {
+  name: string
+  number: string
+}
+
 interface CartItem {
   id: string
   name: string
@@ -12,9 +17,9 @@ interface CartItem {
 }
 
 interface CartState {
-  secureContact: string
+  secureContact: SecureContact
+  setSecureContact: (value: SecureContact) => void
   cart: CartItem[]
-  setSecureContact: (value: string) => void
   addToCart: (item: Omit<CartItem, 'quantity'>, quantity?: number) => void
   removeFromCart: (id: string) => void
   updateCartItem: (id: string, quantity: number) => void
@@ -24,9 +29,9 @@ interface CartState {
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
-      secureContact: '',
-      cart: [],
+      secureContact: { name: '', number: '' },
       setSecureContact: (value) => set({ secureContact: value }),
+      cart: [],
       addToCart: (item, quantity = 1) =>
         set((state) => {
           const existing = state.cart.find((i) => i.id === item.id)
