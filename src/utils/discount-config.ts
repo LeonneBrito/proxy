@@ -16,10 +16,10 @@ export const fixedDiscountMap: PricingMap = {
     },
     notAlly: {
       1: 3500,
-      2: 3400,
-      3: 3300,
-      4: 3200,
-      5: 2900,
+      2: 3450,
+      3: 3400,
+      4: 3350,
+      5: 3200,
     },
   },
   NOTEBOOK_GAMER_ATM_EDITION: {
@@ -32,10 +32,10 @@ export const fixedDiscountMap: PricingMap = {
     },
     notAlly: {
       1: 12000,
-      2: 11200,
-      3: 10400,
-      4: 9600,
-      5: 7500,
+      2: 11600,
+      3: 11200,
+      4: 10800,
+      5: 10000,
     },
   },
   PENDRIVE_EXPLOSAO_TCHACABUM: {
@@ -47,11 +47,11 @@ export const fixedDiscountMap: PricingMap = {
       5: 6800,
     },
     notAlly: {
-      1: 10000,
-      2: 9500,
-      3: 9000,
-      4: 8500,
-      5: 8500,
+      1: 9500,
+      2: 9300,
+      3: 9100,
+      4: 8900,
+      5: 8800,
     },
   },
 }
