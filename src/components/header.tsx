@@ -2,7 +2,7 @@
 
 import { ShoppingCart, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -17,6 +17,7 @@ import { useCartStore } from '@/store/use-cart-store'
 export function Header() {
   const router = useRouter()
   const { cart } = useCartStore()
+  const [gangName, setGangName] = useState('')
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
   const totalPrice = cart.reduce(
@@ -24,10 +25,13 @@ export function Header() {
     0,
   )
 
-  const gangKey = Object.keys(gangs).find(
-    (key) => gangs[key].login === localStorage.getItem('gang'),
-  )
-  const gangName = gangKey ? gangs[gangKey].name : ''
+  useEffect(() => {
+    const gangFromStorage = localStorage.getItem('gang')
+    const gangKey = Object.keys(gangs).find(
+      (key) => gangs[key].login === gangFromStorage,
+    )
+    setGangName(gangKey ? gangs[gangKey].name : '')
+  }, [])
 
   useEffect(() => {
     if (!gangName) {

@@ -5,6 +5,8 @@ export function Countdown() {
   const [timeLeft, setTimeLeft] = useState('24:00:00')
 
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
     const savedStart = localStorage.getItem('finishOrderStart')
     const startTime = savedStart ? new Date(savedStart) : new Date()
     if (!savedStart) {

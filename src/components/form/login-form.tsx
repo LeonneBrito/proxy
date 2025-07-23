@@ -42,9 +42,11 @@ export function LoginForm() {
   }
 
   useEffect(() => {
-    const alreadyLogged = localStorage.getItem('gang')
-    if (alreadyLogged) {
-      router.push('/store')
+    if (typeof window !== 'undefined') {
+      const alreadyLogged = localStorage.getItem('gang')
+      if (alreadyLogged) {
+        router.push('/store')
+      }
     }
   }, [router])
 

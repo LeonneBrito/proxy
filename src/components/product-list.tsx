@@ -16,8 +16,10 @@ export function ProductList() {
   const [gang, setGang] = useState<string | null>(null)
 
   useEffect(() => {
-    const storedGang = localStorage.getItem('gang')
-    setGang(storedGang)
+    if (typeof window !== 'undefined') {
+      const storedGang = localStorage.getItem('gang')
+      setGang(storedGang)
+    }
   }, [])
 
   const isAlly = gang ? allyGangs.includes(gang.toLowerCase()) : false
