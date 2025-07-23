@@ -33,12 +33,6 @@ export function Header() {
     setGangName(gangKey ? gangs[gangKey].name : '')
   }, [])
 
-  useEffect(() => {
-    if (!gangName) {
-      router.push('/')
-    }
-  }, [gangName, router])
-
   return (
     <header className="p-3 border border-green-800 bg-gray-950 flex items-center justify-between text-white">
       <h1 className="text-green-400 font-bold text-lg">
