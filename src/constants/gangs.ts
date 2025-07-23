@@ -1,4 +1,10 @@
-export const allyGangs = ['angels', 'ballas', 'black rose', 'sharksix']
+export const allyGangs = [
+  'angels',
+  'ballas',
+  'black rose',
+  'sharksix',
+  'cyberdystopia',
+]
 
 export const gangs: {
   [key: string]: {
@@ -61,5 +67,10 @@ export const gangs: {
     name: 'Anarquia',
     login: 'anarquia',
     password: 'Vn9qK5rS',
+  },
+  cyberdystopia: {
+    name: 'Cyber Dystopia',
+    login: 'cyberdystopia',
+    password: 'dongusoruam',
   },
 }

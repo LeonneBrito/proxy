@@ -32,6 +32,7 @@ export default function RootLayout({
         <Toaster
           richColors
           closeButton={false}
+          gap={8}
           toastOptions={{
             className: 'bg-gray-800 text-gray-100 border-gray-700',
             style: {

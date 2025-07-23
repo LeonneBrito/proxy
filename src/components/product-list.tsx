@@ -2,6 +2,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 import { allyGangs } from '@/constants/gangs'
 import { products } from '@/constants/products'
@@ -23,8 +24,27 @@ export function ProductList() {
   }, [])
 
   const isAlly = gang ? allyGangs.includes(gang.toLowerCase()) : false
+  const isCyber = gang?.toLowerCase() === 'cyberdystopia'
+
+  const cyberLimits: Record<string, number> = {
+    PENDRIVE_SUMMERELETROHITS_2025: 2,
+    NOTEBOOK_GAMER_ATM_EDITION: 1,
+    LAPTOP_CARRO_FORTE_EDITION: 1,
+  }
 
   const handleQuantityChange = (id: string, value: number) => {
+    const product = products.find((p) => p.id === id)
+    if (!product) return
+
+    const limit = isCyber ? cyberLimits[product.name] : null
+
+    if (limit && value > limit) {
+      toast.error(
+        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`,
+      )
+      return
+    }
+
     setQuantities((prev) => ({
       ...prev,
       [id]: value,
@@ -34,6 +54,14 @@ export function ProductList() {
   const handleAddToCart = (product: (typeof products)[0]) => {
     const quantity = quantities[product.id] || 1
     const price = isAlly ? product.price.ally : product.price.notAlly
+
+    const limit = isCyber ? cyberLimits[product.name] : null
+    if (limit && quantity > limit) {
+      alert(
+        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`,
+      )
+      return
+    }
 
     addToCart(
       {

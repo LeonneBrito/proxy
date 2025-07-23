@@ -1,4 +1,5 @@
 // store/use-cart-store.ts
+import { toast } from 'sonner'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -36,6 +37,27 @@ export const useCartStore = create<CartState>()(
         set((state) => {
           const existing = state.cart.find((i) => i.id === item.id)
           const newQuantity = existing ? existing.quantity + quantity : quantity
+
+          const gangKey =
+            typeof window !== 'undefined' ? localStorage.getItem('gang') : null
+
+          const cyberLimits: Record<string, number> = {
+            PENDRIVE_SUMMERELETROHITS_2025: 2,
+            NOTEBOOK_GAMER_ATM_EDITION: 1,
+            LAPTOP_CARRO_FORTE_EDITION: 1,
+          }
+
+          if (gangKey === 'cyberdystopia' && cyberLimits[item.name]) {
+            const current = existing ? existing.quantity : 0
+            const allowed = cyberLimits[item.name]
+
+            if (current + quantity > allowed) {
+              toast.error(
+                `Limite atingido para ${item.name}. Máximo permitido: ${allowed} unidade(s) para Cyber Dystopia.`,
+              )
+              return state
+            }
+          }
 
           const productMap =
             fixedDiscountMap[item.name as keyof typeof fixedDiscountMap]
