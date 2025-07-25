@@ -50,7 +50,7 @@ export const products = [
     id: '#3B5E8F1A',
     name: 'PENDRIVE_EXPLOSAO_TCHACABUM',
     image: '/images/pendrive-explosao-tchacabum.png',
-    disabled: false,
+    disabled: true,
     description: [
       'Pendrive criado em laboratório secreto por um engenheiro demitido da NASA e um DJ de baile funk.',
       'Finge ser firmware legítimo enquanto entrega o caos. Camaleão digital.',
