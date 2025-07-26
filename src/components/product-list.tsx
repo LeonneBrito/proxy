@@ -5,13 +5,17 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { allyGangs } from '@/constants/gangs'
-import { products } from '@/constants/products'
 import { useCartStore } from '@/store/use-cart-store'
+import type { Product } from '@/types'
 
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 
-export function ProductList() {
+interface ProductList {
+  products: Product[]
+}
+
+export function ProductList({ products }: ProductList) {
   const { addToCart } = useCartStore()
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [gang, setGang] = useState<string | null>(null)
@@ -73,6 +77,14 @@ export function ProductList() {
     )
 
     setQuantities((prev) => ({ ...prev, [product.id]: 1 }))
+  }
+
+  if (!products || products.length === 0) {
+    return (
+      <div className="text-center text-gray-500">
+        Nenhum produto disponível no momento.
+      </div>
+    )
   }
 
   return (
