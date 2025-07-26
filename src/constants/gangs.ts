@@ -71,6 +71,6 @@ export const gangs: {
   cyberdystopia: {
     name: 'Cyber Dystopia',
     login: 'cyberdystopia',
-    password: 'dongusoruam',
+    password: 'hazelcaine',
   },
 }
