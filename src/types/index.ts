@@ -5,6 +5,8 @@ export interface Product {
   disabled: boolean
   description: string[]
   specs: string[]
+  avgPerAction: number
+  uses: number
   price: {
     ally: number
     notAlly: number

@@ -133,10 +133,26 @@ export function ProductList({ products }: ProductList) {
               </div>
 
               {!product.disabled && (
-                <div className="flex items-center justify-between mt-auto">
+                <div className="flex flex-col gap-1 mt-auto">
                   <div>
                     <span className="text-xs text-green-400">PREÇO:</span>
-                    <span className="text-white ml-2">${price}</span>
+                    <span className="text-white ml-2 text-xs">${price}</span>
+                  </div>
+                  <div>
+                    <span className="text-xs text-green-400">
+                      CADA AÇÃO RENDE EM MÉDIA:
+                    </span>
+                    <span className="text-white ml-2 text-xs">
+                      ${product.avgPerAction || '???'} sujos
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-xs text-green-400">
+                      USOS POR ITEM:
+                    </span>
+                    <span className="text-white ml-2 text-xs">
+                      {product.uses}x
+                    </span>
                   </div>
                 </div>
               )}

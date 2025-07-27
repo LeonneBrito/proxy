@@ -6,7 +6,7 @@ import { System } from '@/components/system'
 export default async function Page() {
   const products = await fetch(
     'https://gist.github.com/LeonneBrito/fb5cc37dd8a24d5151bc4d2bc2fb2127/raw/products.json',
-    { next: { revalidate: 60 } }, // Revalidate every 60 seconds
+    { next: { revalidate: 60 } },
   ).then((res) => res.json())
 
   return (
