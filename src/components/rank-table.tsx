@@ -27,7 +27,14 @@ export function RankTable({ items }: { items: Item[] }) {
     const arr = [...items]
       .filter((i) => {
         if (!q) return true
-        return normalized(i.gangName).includes(q) || normalized(i.gangLogin ?? '').includes(q)
+        const login = (i.gangLogin ?? '').toLowerCase()
+        const key = login || slugify(i.gangName)
+        const displayName = funnyGangs[key] || i.gangName
+        return (
+          normalized(i.gangName).includes(q) ||
+          normalized(i.gangLogin ?? '').includes(q) ||
+          normalized(displayName).includes(q)
+        )
       })
       .sort((a, b) => b.totalSpent - a.totalSpent)
 

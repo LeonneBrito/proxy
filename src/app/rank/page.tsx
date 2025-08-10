@@ -7,7 +7,7 @@ export const revalidate = 60
 
 async function getRank() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? ''}/api/spendings/list`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 604800 },
   })
 
   if (!res.ok) {
@@ -35,7 +35,7 @@ export default async function Page() {
         <section className="space-y-4">
           <h1 className="text-xl font-bold tracking-tight">RANK_DE_GASTOS</h1>
             <p className="text-xs text-green-500/80">
-            Fonte: base MongoDB (&nbsp;<span className="underline decoration-dotted">{btoa('/api/spendings/list')}</span>&nbsp;). Atualizado a cada 60s.
+              Fonte: base CodeDB (&nbsp;<span className="underline decoration-dotted">{btoa('/api/spendings/list')}</span>&nbsp;). Atualizado a cada semana.
             </p>
 
           <RankTable items={rank?.data ?? []} />
