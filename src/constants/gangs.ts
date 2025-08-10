@@ -48,10 +48,10 @@ export const gangs: {
     login: 'cesarini',
     password: 'Lt6vK8rM',
   },
-  saints: {
-    name: 'Saints',
-    login: 'saints',
-    password: 'Yn2tK6xD',
+  families: {
+    name: 'Families',
+    login: 'families',
+    password: 'Yp3tN6bQ',
   },
   sharkSix: {
     name: 'Shark SIX',
