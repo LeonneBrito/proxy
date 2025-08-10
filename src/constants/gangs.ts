@@ -38,7 +38,7 @@ export const gangs: {
     login: 'hustlers',
     password: 'Qx9dP3mR',
   },
-  'black rose': {
+  'blackrose': {
     name: 'Black Rose',
     login: 'blackrose',
     password: 'Zc5mW4yV',
