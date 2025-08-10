@@ -1,6 +1,6 @@
 'use client'
 
-import { LogOut, ShoppingCart, Trash2 } from 'lucide-react'
+import { LogOut, ShoppingCart, Trash2, Trophy, Store } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
@@ -48,12 +48,33 @@ export function Header() {
         </h1>
 
         <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-gray-800"
+            onClick={() => router.push('/rank')}
+            title="Ver Ranking"
+          >
+            <Trophy className="h-5 w-5 text-yellow-400" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hover:bg-gray-800"
+            onClick={() => router.push('/store')}
+            title="Ir para Loja"
+          >
+            <Store className="h-5 w-5 text-green-400" />
+          </Button>
+
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="ghost"
                 size="default"
                 className="hover:bg-gray-800"
+                title="Ver Carrinho"
               >
                 <ShoppingCart className="h-5 w-5 text-green-400" />
                 {totalItems > 0 && (
@@ -124,6 +145,7 @@ export function Header() {
             size="icon"
             className="hover:bg-gray-800"
             onClick={handleLogout}
+            title="Sair"
           >
             <LogOut className="h-5 w-5 text-red-400" />
           </Button>
