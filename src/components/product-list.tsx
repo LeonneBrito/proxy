@@ -1,70 +1,70 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-import { allyGangs } from '@/constants/gangs'
-import { useCartStore } from '@/store/use-cart-store'
-import type { Product } from '@/types'
+import { allyGangs } from "@/constants/gangs";
+import { useCartStore } from "@/store/use-cart-store";
+import type { Product } from "@/types";
 
-import { Button } from './ui/button'
-import { Input } from './ui/input'
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 interface ProductList {
-  products: Product[]
+  products: Product[];
 }
 
 export function ProductList({ products }: ProductList) {
-  const { addToCart } = useCartStore()
-  const [quantities, setQuantities] = useState<Record<string, number>>({})
-  const [gang, setGang] = useState<string | null>(null)
+  const { addToCart } = useCartStore();
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const [gang, setGang] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedGang = localStorage.getItem('gang')
-      setGang(storedGang)
+    if (typeof window !== "undefined") {
+      const storedGang = localStorage.getItem("gang");
+      setGang(storedGang);
     }
-  }, [])
+  }, []);
 
-  const isAlly = gang ? allyGangs.includes(gang.toLowerCase()) : false
-  const isCyber = gang?.toLowerCase() === 'cyberdystopia'
+  const isAlly = gang ? allyGangs.includes(gang.toLowerCase()) : false;
+  const isCyber = gang?.toLowerCase() === "cyberdystopia";
 
   const cyberLimits: Record<string, number> = {
     PENDRIVE_SUMMERELETROHITS_2025: 2,
     NOTEBOOK_GAMER_ATM_EDITION: 1,
     LAPTOP_CARRO_FORTE_EDITION: 1,
-  }
+  };
 
   const handleQuantityChange = (id: string, value: number) => {
-    const product = products.find((p) => p.id === id)
-    if (!product) return
+    const product = products.find((p) => p.id === id);
+    if (!product) return;
 
-    const limit = isCyber ? cyberLimits[product.name] : null
+    const limit = isCyber ? cyberLimits[product.name] : null;
 
     if (limit && value > limit) {
       toast.error(
-        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`,
-      )
-      return
+        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`
+      );
+      return;
     }
 
     setQuantities((prev) => ({
       ...prev,
       [id]: value,
-    }))
-  }
+    }));
+  };
 
   const handleAddToCart = (product: (typeof products)[0]) => {
-    const quantity = quantities[product.id] || 1
-    const price = isAlly ? product.price.ally : product.price.notAlly
+    const quantity = quantities[product.id] || 1;
+    const price = isAlly ? product.price.ally : product.price.notAlly;
 
-    const limit = isCyber ? cyberLimits[product.name] : null
+    const limit = isCyber ? cyberLimits[product.name] : null;
     if (limit && quantity > limit) {
       alert(
-        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`,
-      )
-      return
+        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`
+      );
+      return;
     }
 
     addToCart(
@@ -73,38 +73,38 @@ export function ProductList({ products }: ProductList) {
         name: product.name,
         price,
       },
-      quantity,
-    )
+      quantity
+    );
 
-    setQuantities((prev) => ({ ...prev, [product.id]: 1 }))
-  }
+    setQuantities((prev) => ({ ...prev, [product.id]: 1 }));
+  };
 
   if (!products || products.length === 0) {
     return (
       <div className="text-center text-gray-500">
         Nenhum produto disponível no momento.
       </div>
-    )
+    );
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {products.map((product) => {
-        const price = isAlly ? product.price.ally : product.price.notAlly
+        const price = isAlly ? product.price?.ally : product.price?.notAlly;
 
         return (
           <div
             key={product.id}
             className={
-              'relative border border-green-800 bg-gray-950 overflow-hidden shadow-lg flex flex-col' +
-              (product.disabled ? ' opacity-50' : '')
+              "relative border border-green-800 bg-gray-950 overflow-hidden shadow-lg flex flex-col" +
+              (product.disabled ? " opacity-50" : "")
             }
           >
-            <div className="h-48 bg-gray-800 flex items-center justify-center">
+            <div className="h-64 bg-gray-800 flex items-center justify-center">
               <img
                 src={product.image}
                 alt={product.name}
-                className="object-cover h-full w-full"
+                className="object-cover h-full w-full max-w-full object-center"
               />
             </div>
 
@@ -115,7 +115,9 @@ export function ProductList({ products }: ProductList) {
                 </span>
               </div>
 
-              <h2 className="font-semibold mb-2 text-white">{product.name}</h2>
+              <h2 className="font-semibold mb-2 text-white break-words">
+                {product.name}
+              </h2>
 
               <div className="mb-2">
                 <p className="text-green-300 text-xs">
@@ -143,7 +145,7 @@ export function ProductList({ products }: ProductList) {
                       CADA AÇÃO RENDE EM MÉDIA:
                     </span>
                     <span className="text-white ml-2 text-xs">
-                      ${product.avgPerAction || '???'} sujos
+                      ${product.avgPerAction || "???"} sujos
                     </span>
                   </div>
                   <div>
@@ -157,26 +159,26 @@ export function ProductList({ products }: ProductList) {
                 </div>
               )}
 
-              {!product.disabled && (
-                <div className="mt-4 flex items-center gap-2">
-                  <Input
-                    type="number"
-                    min={1}
-                    className="w-16 px-2 py-1 text-sm text-white bg-gray-950 border border-green-600 rounded-none"
-                    value={quantities[product.id] ?? 1}
-                    onChange={(e) =>
-                      handleQuantityChange(product.id, parseInt(e.target.value))
-                    }
-                  />
-                  <Button
-                    variant="outline"
-                    className="text-white text-xs px-4 py-2 bg-gray-950 border border-green-600 hover:bg-green-600 hover:text-white rounded-none"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    [ADICIONAR_AO_CARRINHO]
-                  </Button>
-                </div>
-              )}
+              <div className="mt-4 flex items-center gap-2">
+                <Input
+                  type="number"
+                  min={1}
+                  className="w-16 px-2 py-1 text-sm text-white bg-gray-950 border border-green-600 rounded-none"
+                  value={quantities[product.id] ?? 1}
+                  onChange={(e) =>
+                    handleQuantityChange(product.id, parseInt(e.target.value))
+                  }
+                  disabled={product.disabled}
+                />
+                <Button
+                  variant="outline"
+                  className="text-white text-xs px-4 py-2 bg-gray-950 border border-green-600 hover:bg-green-600 hover:text-white rounded-none"
+                  onClick={() => handleAddToCart(product)}
+                  disabled={product.disabled}
+                >
+                  [ADICIONAR_AO_CARRINHO]
+                </Button>
+              </div>
             </div>
 
             {product.disabled && (
@@ -185,8 +187,8 @@ export function ProductList({ products }: ProductList) {
               </div>
             )}
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
