@@ -1,6 +1,5 @@
 'use client'
 
-import { gangs } from '@/constants/gangs'
 import { useCartStore } from '@/store/use-cart-store'
 
 import { Button } from './ui/button'
