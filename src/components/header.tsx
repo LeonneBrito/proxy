@@ -29,6 +29,8 @@ export function Header() {
 
   const handleLogout = async () => {
     await signOut();
+    localStorage.removeItem("cart-storage");
+    useCartStore.getState().clearCart();
     router.push("/");
   };
 
