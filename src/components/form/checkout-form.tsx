@@ -6,14 +6,15 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { gangs } from "@/constants/gangs";
 import { useCartStore } from "@/store/use-cart-store";
 import { formatPhoneNumber } from "@/utils/format-number";
 
 import { Resume } from "../resume";
+import { useSession } from "@/lib/auth-client";
 
 export function CheckoutForm() {
   const router = useRouter();
+  const { data: session } = useSession();
   const { cart, secureContact, setSecureContact, clearCart } = useCartStore();
 
   const [contact2, setContact2] = useState({ name: "", number: "" });
@@ -22,12 +23,7 @@ export function CheckoutForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_PAYMENT || "";
-  const gang =
-    typeof window !== "undefined"
-      ? Object.values(gangs).find(
-          (g) => g.login === localStorage.getItem("gang")
-        )
-      : undefined;
+  const gang = session?.user.username || "";
   const isValidGang = !!gang;
 
   useEffect(() => {
@@ -38,7 +34,7 @@ export function CheckoutForm() {
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
 
   const generateDiscordMessage = () => {
-    const gangName = gang?.name || "[NÃO IDENTIFICADA]";
+    const gangName = session?.user.displayUsername || "[NÃO IDENTIFICADA]";
 
     return [
       "```yaml",
@@ -89,8 +85,8 @@ export function CheckoutForm() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            gangLogin: gang?.login,
-            gangName: gang?.name,
+            gangLogin: session?.user.username || "",
+            gangName: session?.user.displayUsername || "",
             amount: Number(totalPrice.toFixed(2)),
             transactionId,
             source: "checkout",

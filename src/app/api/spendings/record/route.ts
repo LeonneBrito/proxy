@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { dbConnect } from '@/lib/mongodb'
 import { GangSpendingModel } from '@/models/gang-spending'
-import { gangs } from '@/constants/gangs'
 
 const bodySchema = z.object({
   gangLogin: z.string().optional(),
@@ -19,11 +18,7 @@ export async function POST(req: Request) {
 
     await dbConnect()
 
-    let resolvedName = gangName
-    if (!resolvedName && gangLogin) {
-      const found = Object.values(gangs).find(g => g.login === gangLogin)
-      resolvedName = found?.name
-    }
+    const resolvedName = gangName || gangLogin
 
     if (!resolvedName) {
       return NextResponse.json(

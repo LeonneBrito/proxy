@@ -2,13 +2,24 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { CheckoutForm } from '@/components/form/checkout-form'
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Checkout',
   description: 'Finalize sua compra de forma segura e anônima',
 }
 
-export default function CheckoutPage() {
+export default async function CheckoutPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    redirect("/");
+  }
+
   return (
     <div className="min-h-screen bg-gray-950 text-green-400 font-mono">
       <div className="max-w-6xl not-only:mx-auto flex items-center justify-between p-4">

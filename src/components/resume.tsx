@@ -4,13 +4,12 @@ import { gangs } from '@/constants/gangs'
 import { useCartStore } from '@/store/use-cart-store'
 
 import { Button } from './ui/button'
+import { useSession } from '@/lib/auth-client';
 
 export function Resume() {
+  const { data: session } = useSession();
   const { cart, clearCart } = useCartStore()
-
-  const gang = Object.values(gangs).find(
-    (g) => g.login === localStorage.getItem('gang'),
-  )
+  const gang =  session?.user.username || '';
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 

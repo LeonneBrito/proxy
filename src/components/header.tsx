@@ -1,50 +1,42 @@
-'use client'
+"use client";
 
-import { LogOut, ShoppingCart, Trash2, Trophy, Store } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { LogOut, ShoppingCart, Trash2, Trophy, Store } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import { signOut } from "@/lib/auth-client";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { Separator } from '@/components/ui/separator'
-import { gangs } from '@/constants/gangs'
-import { useCartStore } from '@/store/use-cart-store'
+} from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { useCartStore } from "@/store/use-cart-store";
 
-import { DiscountAlertDialog } from './discount-alert-dialog'
+import { DiscountAlertDialog } from "./discount-alert-dialog";
 
 export function Header() {
-  const router = useRouter()
-  const { cart } = useCartStore()
-  const [gangName, setGangName] = useState('')
+  const router = useRouter();
+  const { cart } = useCartStore();
+  const { data: session } = useSession();
 
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0,
-  )
+    0
+  );
 
-  useEffect(() => {
-    const gangFromStorage = localStorage.getItem('gang')
-    const gangKey = Object.keys(gangs).find(
-      (key) => gangs[key].login === gangFromStorage,
-    )
-    setGangName(gangKey ? gangs[gangKey].name : '')
-  }, [])
-
-  const handleLogout = () => {
-    localStorage.removeItem('gang')
-    router.push('/')
-  }
+  const handleLogout = async () => {
+    await signOut();
+    router.push("/");
+  };
 
   return (
     <>
       <header className="p-3 border border-green-800 bg-gray-950 flex items-center justify-between text-white">
         <h1 className="text-green-400 font-bold text-lg">
-          Bem vindos, {gangName}!
+          Bem vindos, {session?.user.displayUsername || session?.user.email}!
         </h1>
 
         <div className="flex items-center gap-2">
@@ -52,7 +44,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="hover:bg-gray-800"
-            onClick={() => router.push('/rank')}
+            onClick={() => router.push("/rank")}
             title="Ver Ranking"
           >
             <Trophy className="h-5 w-5 text-yellow-400" />
@@ -62,7 +54,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="hover:bg-gray-800"
-            onClick={() => router.push('/store')}
+            onClick={() => router.push("/store")}
             title="Ir para Loja"
           >
             <Store className="h-5 w-5 text-green-400" />
@@ -131,7 +123,7 @@ export function Header() {
                   <Button
                     variant="outline"
                     className=" text-white text-xs px-4 py-2 bg-gray-950 border border-green-600 hover:bg-green-600 hover:text-white rounded-none w-full"
-                    onClick={() => router.push('/store/checkout')}
+                    onClick={() => router.push("/store/checkout")}
                   >
                     [FINALIZAR_COMPRA]
                   </Button>
@@ -153,5 +145,5 @@ export function Header() {
       </header>
       <DiscountAlertDialog />
     </>
-  )
+  );
 }

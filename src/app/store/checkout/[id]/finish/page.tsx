@@ -1,14 +1,25 @@
-import { CheckCircle, Shield } from 'lucide-react'
-import Link from 'next/link'
+import { CheckCircle, Shield } from "lucide-react";
+import Link from "next/link";
 
-import { Countdown } from '@/components/countdown'
+import { Countdown } from "@/components/countdown";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function FinishOrderPage({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = await params
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session?.user) {
+    redirect("/");
+  }
+
+  const { id } = await params;
 
   return (
     <div className="min-h-screen bg-gray-950 text-green-400 font-mono">
@@ -59,5 +70,5 @@ export default async function FinishOrderPage({
         <Countdown />
       </main>
     </div>
-  )
+  );
 }

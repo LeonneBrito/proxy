@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { allyGangs } from "@/constants/gangs";
@@ -10,6 +10,7 @@ import type { Product } from "@/types";
 
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useSession } from "@/lib/auth-client";
 
 interface ProductList {
   products: Product[];
@@ -17,17 +18,10 @@ interface ProductList {
 
 export function ProductList({ products }: ProductList) {
   const { addToCart } = useCartStore();
+  const { data: session } = useSession();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
-  const [gang, setGang] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedGang = localStorage.getItem("gang");
-      setGang(storedGang);
-    }
-  }, []);
-
-  const isAlly = gang ? allyGangs.includes(gang.toLowerCase()) : false;
+  const gang = session?.user.username || "";
+  const isAlly = session?.user.username ? allyGangs.includes(gang.toLowerCase()) : false;
   const isCyber = gang?.toLowerCase() === "cyberdystopia";
 
   const cyberLimits: Record<string, number> = {
