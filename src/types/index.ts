@@ -10,5 +10,6 @@ export interface Product {
   price: {
     ally: number
     notAlly: number
+    enemy: number
   }
 }
