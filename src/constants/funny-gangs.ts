@@ -7,8 +7,11 @@ export const funnyGangs: { [key: string]: string } = {
   blackrose: 'Flor Trevosa',
   cesarini: 'Césarzinho',
   families: 'Fámílias Reunidas',
-  sharksix: 'Tubarão Seis Patas',
+  sharksix: 'Tralalero Tralala',
   mib: 'Homens de Preto e Azul',
   anarquia: 'Anarquinhos',
   cyberdystopia: 'Ciber Bagunça',
+  thelost: 'Perdidos e Achados',
+  vagos: 'Taxistas',
+  bandoleros: 'Restaurante Mexicano',
 }

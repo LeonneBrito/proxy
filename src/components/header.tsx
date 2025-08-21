@@ -38,7 +38,7 @@ export function Header() {
     <>
       <header className="p-3 border border-green-800 bg-gray-950 flex items-center justify-between text-white">
         <h1 className="text-green-400 font-bold text-lg">
-          Bem vindos, {session?.user.displayUsername || session?.user.email}!
+          Bem vindos, {session?.user.name || session?.user.email}!
         </h1>
 
         <div className="flex items-center gap-2">
