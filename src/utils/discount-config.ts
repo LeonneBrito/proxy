@@ -2,7 +2,6 @@ type PricingMap = {
   [productName: string]: {
     ally: Record<number, number>
     notAlly: Record<number, number>
-    enemy: Record<number, number>
   }
 }
 
@@ -22,13 +21,6 @@ export const fixedDiscountMap: PricingMap = {
       4: 3350,
       5: 3200,
     },
-    enemy: {
-      1: 4000,
-      2: 3950,
-      3: 3900,
-      4: 3850,
-      5: 3800,
-    },
   },
   NOTEBOOK_GAMER_ATM_EDITION: {
     ally: {
@@ -45,13 +37,6 @@ export const fixedDiscountMap: PricingMap = {
       4: 10800,
       5: 10000,
     },
-    enemy: {
-      1: 15000,
-      2: 14500,
-      3: 14000,
-      4: 13500,
-      5: 13000,
-    },
   },
   PENDRIVE_EXPLOSAO_TCHACABUM: {
     ally: {
@@ -67,13 +52,6 @@ export const fixedDiscountMap: PricingMap = {
       3: 11200,
       4: 10800,
       5: 10000,
-    },
-    enemy: {
-      1: 15000,
-      2: 14500,
-      3: 14000,
-      4: 13500,
-      5: 13000,
     },
   },
 }
