@@ -22,23 +22,17 @@ export function ProductList({ products }: ProductList) {
   const [quantities, setQuantities] = useState<Record<string, number>>({});
   const gang = session?.user.username || "";
   const isAlly = session?.user.username ? allyGangs.includes(gang.toLowerCase()) : false;
-  const isCyber = gang?.toLowerCase() === "cyberdystopia";
-
-  const cyberLimits: Record<string, number> = {
-    PENDRIVE_SUMMERELETROHITS_2025: 2,
-    NOTEBOOK_GAMER_ATM_EDITION: 1,
-    LAPTOP_CARRO_FORTE_EDITION: 1,
-  };
 
   const handleQuantityChange = (id: string, value: number) => {
     const product = products.find((p) => p.id === id);
     if (!product) return;
 
-    const limit = isCyber ? cyberLimits[product.name] : null;
-
-    if (limit && value > limit) {
+    // Limite geral de 2 itens por produto para todas as gangues
+    const generalLimit = 2;
+    
+    if (value > generalLimit) {
       toast.error(
-        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`
+        `Limite de ${generalLimit} unidade(s) por produto para ${product.name}`
       );
       return;
     }
@@ -53,10 +47,11 @@ export function ProductList({ products }: ProductList) {
     const quantity = quantities[product.id] || 1;
     const price = isAlly ? product.price.ally : product.price.notAlly;
 
-    const limit = isCyber ? cyberLimits[product.name] : null;
-    if (limit && quantity > limit) {
-      alert(
-        `Limite de ${limit} unidade(s) para ${product.name} (Cyber Dystopia)`
+    // Limite geral de 2 itens por produto para todas as gangues
+    const generalLimit = 2;
+    if (quantity > generalLimit) {
+      toast.error(
+        `Limite de ${generalLimit} unidade(s) por produto para ${product.name}`
       );
       return;
     }
@@ -157,6 +152,7 @@ export function ProductList({ products }: ProductList) {
                 <Input
                   type="number"
                   min={1}
+                  max={2}
                   className="w-16 px-2 py-1 text-sm text-white bg-gray-950 border border-green-600 rounded-none"
                   value={quantities[product.id] ?? 1}
                   onChange={(e) =>

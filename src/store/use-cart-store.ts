@@ -41,22 +41,15 @@ export const useCartStore = create<CartState>()(
           const gangKey =
             typeof window !== 'undefined' ? localStorage.getItem('gang') : null
 
-          const cyberLimits: Record<string, number> = {
-            PENDRIVE_SUMMERELETROHITS_2025: 2,
-            NOTEBOOK_GAMER_ATM_EDITION: 1,
-            LAPTOP_CARRO_FORTE_EDITION: 1,
-          }
+          // Limite geral de 2 itens por produto para todas as gangues
+          const generalLimit = 2
+          const current = existing ? existing.quantity : 0
 
-          if (gangKey === 'cyberdystopia' && cyberLimits[item.name]) {
-            const current = existing ? existing.quantity : 0
-            const allowed = cyberLimits[item.name]
-
-            if (current + quantity > allowed) {
-              toast.error(
-                `Limite atingido para ${item.name}. Máximo permitido: ${allowed} unidade(s) para Cyber Dystopia.`,
-              )
-              return state
-            }
+          if (current + quantity > generalLimit) {
+            toast.error(
+              `Limite atingido para ${item.name}. Máximo permitido: ${generalLimit} unidade(s) por produto.`,
+            )
+            return state
           }
 
           const productMap =
@@ -89,11 +82,26 @@ export const useCartStore = create<CartState>()(
           cart: state.cart.filter((item) => item.id !== id),
         })),
       updateCartItem: (id, quantity) =>
-        set((state) => ({
-          cart: state.cart.map((item) =>
-            item.id === id ? { ...item, quantity } : item,
-          ),
-        })),
+        set((state) => {
+          // Limite geral de 2 itens por produto para todas as gangues
+          const generalLimit = 2
+          
+          if (quantity > generalLimit) {
+            const item = state.cart.find((i) => i.id === id)
+            if (item) {
+              toast.error(
+                `Limite atingido para ${item.name}. Máximo permitido: ${generalLimit} unidade(s) por produto.`,
+              )
+            }
+            return state
+          }
+
+          return {
+            cart: state.cart.map((item) =>
+              item.id === id ? { ...item, quantity } : item,
+            ),
+          }
+        }),
       clearCart: () =>
         set({ cart: [], secureContact: { name: '', number: '' } }),
     }),

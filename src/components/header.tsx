@@ -46,16 +46,6 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="hover:bg-gray-800"
-            onClick={() => router.push("/rank")}
-            title="Ver Ranking"
-          >
-            <Trophy className="h-5 w-5 text-yellow-400" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hover:bg-gray-800"
             onClick={() => router.push("/store")}
             title="Ir para Loja"
           >
